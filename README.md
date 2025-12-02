@@ -17,7 +17,7 @@ Aplicación web para una pizzería que muestra un catálogo de pizzas con sus in
 
 1. Clona el repositorio:
 ```bash
-git clone <url-del-repositorio>
+git clone <https://github.com/Zebastopol/hito-pizzeria.git>
 ```
 
 2. Navega a la carpeta del proyecto:
