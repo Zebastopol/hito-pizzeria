@@ -58,6 +58,8 @@ pizzeria-mamma-mia/
 │   ├── components/
 │   │   ├── Navbar.jsx
 │   │   ├── Header.jsx
+│   │   ├── RegisterPage.jsx
+│   │   ├── LoginPage.jsx
 │   │   ├── CardPizza.jsx
 │   │   ├── Home.jsx
 │   │   └── Footer.jsx

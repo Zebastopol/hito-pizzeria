@@ -5,15 +5,18 @@ const CardPizza = ({ name, price, ingredients, img }) => {
     <div className="card h-100 mt-3 mb-3">
       <img src={img} className="card-img-top" alt={name} />
       <div className="card-body">
-        <h4 className="card-title text-start">{name}</h4>
+        <h4 className="card-title text-start text-capitalize">{name}</h4>
         <hr />
         <p className="card-text text-center">
             <strong>Ingredientes:</strong>
         </p>
         <ul className="list-group list-group-flush text-center" style={{fontSize: '0.9rem'}}>
-            <li className="list-group-item border-0">
-                🍕 {ingredients.join(', ')}
-            </li>
+            {/* Renderización Dinámica de Ingredientes */}
+            {ingredients.map((ingredient, index) => (
+                <li key={index} className="list-group-item border-0 text-capitalize">
+                     🍕 {ingredient}
+                </li>
+            ))}
         </ul>
       </div>
       <ul className="list-group list-group-flush">
