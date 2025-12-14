@@ -61,10 +61,12 @@ pizzeria-mamma-mia/
 │   │   ├── RegisterPage.jsx
 │   │   ├── LoginPage.jsx
 │   │   ├── CardPizza.jsx
+│   │   ├── Cart.jsx
 │   │   ├── Home.jsx
 │   │   └── Footer.jsx
 │   ├── utils/
 │   │   └── format.js
+│   │   └── pizzas.js
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css
