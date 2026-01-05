@@ -1,19 +1,19 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-//import Home from './components/Home';
+import Home from './components/Home';
 import Footer from './components/Footer';
 //import RegisterPage from './components/RegisterPage';
 //import LoginPage from './components/LoginPage';
-import Cart from './components/Cart';
+//import Cart from './components/Cart';
 
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      {/*<Home /> {/* Home contiene el Header y las Cards */}
+      <Home /> {/* Home contiene el Header y las Cards*/} 
       {/*<RegisterPage />*/}
       {/*<LoginPage />*/}
-      <Cart />
+      {/*<Cart />*/}
       <Footer />
     </div>
   );
