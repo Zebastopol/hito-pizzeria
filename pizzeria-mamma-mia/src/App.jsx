@@ -1,24 +1,31 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
 import Footer from './components/Footer';
+
+// IMPORTANTE: Importar desde 'pages'
+import Home from './pages/Home';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import Cart from './pages/Cart';
 import Pizza from './pages/Pizza';
-//import RegisterPage from './components/RegisterPage';
-//import LoginPage from './components/LoginPage';
-//import Cart from './components/Cart';
+import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      {/*<Home />  Home contiene el Header y las Cards*/} 
-      {/*<RegisterPage />*/}
-      {/*<LoginPage />*/}
-      {/*<Cart />*/}
-      <Pizza />
-      {/*<RegisterPage />*/}
-      {/*<LoginPage />*/}
-      {/*<Cart />*/}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/p001" element={<Pizza />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Footer />
     </div>
   );

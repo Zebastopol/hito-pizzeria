@@ -1,14 +1,14 @@
 import React from 'react';
-import { formatCurrency } from '../utils/format'; // Opcional: si creaste el helper
+import { Link } from 'react-router-dom'; // Importamos Link
 
 const Navbar = () => {
   const total = 25000;
   const token = false;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white border-bottom border-secondary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">Pizzería Mamma Mía!</a>
+        <Link className="navbar-brand" to="/">Pizzería Mamma Mía!</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span className="navbar-toggler-icon"></span>
         </button>
@@ -16,35 +16,35 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link text-white border border-white rounded ms-2" href="#">🍕 Home</a>
+              <Link to="/" className="nav-link text-white border border-white rounded ms-2">🍕 Home</Link>
             </li>
             
-            {/* Renderizado condicional según token */}
             {token ? (
               <>
                 <li className="nav-item">
-                  <a className="nav-link text-white border border-white rounded ms-2" href="#">🔓 Profile</a>
+                  <Link to="/profile" className="nav-link text-white border border-white rounded ms-2">🔓 Profile</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-white border border-white rounded ms-2" href="#">🔒 Logout</a>
+                  <Link to="/logout" className="nav-link text-white border border-white rounded ms-2">🔒 Logout</Link>
                 </li>
               </>
             ) : (
               <>
                 <li className="nav-item">
-                  <a className="nav-link text-white border border-white rounded ms-2" href="#">🔐 Login</a>
+                  <Link to="/login" className="nav-link text-white border border-white rounded ms-2">🔐 Login</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-white border border-white rounded ms-2" href="#">🔐 Register</a>
+                  <Link to="/register" className="nav-link text-white border border-white rounded ms-2">🔐 Register</Link>
                 </li>
               </>
             )}
           </ul>
           
           <div className="d-flex">
-            <a className="btn btn-outline-info text-info" href="#">
+            {/* El botón Total ahora es un Link a /cart */}
+            <Link to="/cart" className="btn btn-outline-info text-info">
                 🛒 Total: {total.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
