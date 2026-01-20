@@ -1,8 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // Importamos Link
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { CartContext } from '../context/CartContext'; // <-- Importamos el contexto
 
 const Navbar = () => {
-  const total = 25000;
+  const { total } = useContext(CartContext); // <-- Consumimos el total
   const token = false;
 
   return (
@@ -18,7 +19,6 @@ const Navbar = () => {
             <li className="nav-item">
               <Link to="/" className="nav-link text-white border border-white rounded ms-2">🍕 Home</Link>
             </li>
-            
             {token ? (
               <>
                 <li className="nav-item">
@@ -41,9 +41,8 @@ const Navbar = () => {
           </ul>
           
           <div className="d-flex">
-            {/* El botón Total ahora es un Link a /cart */}
             <Link to="/cart" className="btn btn-outline-info text-info">
-                🛒 Total: {total.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}
+                🛒 Total: ${total.toLocaleString('es-CL')} {/* Total dinámico */}
             </Link>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CardPizza = ({ name, price, ingredients, img, desc }) => {
+const CardPizza = ({ name, price, ingredients, img, desc, handleAdd }) => {
   return (
     <div className="card h-100 mt-3 mb-3">
       <img src={img} className="card-img-top" alt={name} />
@@ -26,7 +26,7 @@ const CardPizza = ({ name, price, ingredients, img, desc }) => {
             </ul>
         <div className="card-body d-flex justify-content-between">
           <button className="btn btn-light border border-dark">Ver Más 👀</button>
-          <button className="btn btn-dark">Añadir 🛒</button>
+          <button className="btn btn-dark" onClick={handleAdd}>Añadir 🛒</button>
         </div>
     </div>
   );

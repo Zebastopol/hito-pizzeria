@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from '../components/Header';       // <-- Ruta corregida
 import CardPizza from '../components/CardPizza'; // <-- Ruta corregida
+import { CartContext } from '../context/CartContext'; // <-- Importamos context
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
+  const { addToCart } = useContext(CartContext); // <-- Consumimos función añadir
 
   useEffect(() => {
     consultarApi();
@@ -32,6 +34,8 @@ const Home = () => {
                 price={pizza.price}
                 ingredients={pizza.ingredients}
                 img={pizza.img}
+                //se pasa la info completa de la pizza para añadir al carrito
+                handleAdd={() => addToCart(pizza)}
               />
             </div>
           ))}
