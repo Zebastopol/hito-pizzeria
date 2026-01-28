@@ -13,7 +13,8 @@ const Home = () => {
 
   const consultarApi = async () => {
     try {
-      const url = "http://localhost:5000/api/pizzas";
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const url = `${apiUrl}/api/pizzas`;
       const response = await fetch(url);
       const data = await response.json();
       setPizzas(data);

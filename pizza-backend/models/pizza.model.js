@@ -1,7 +1,13 @@
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const getPizzas = async () => {
-  const data = await readFile("db/pizzas.json", "utf-8");
+  const dbPath = join(__dirname, "..", "db", "pizzas.json");
+  const data = await readFile(dbPath, "utf-8");
   return JSON.parse(data);
 };
 

@@ -11,7 +11,8 @@ const Pizza = () => {
 
   const consultarPizza = async () => {
     try {
-      const url = "http://localhost:5000/api/pizzas/p001";
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const url = `${apiUrl}/api/pizzas/p001`;
       const response = await fetch(url);
       const data = await response.json();
       setPizza(data);
