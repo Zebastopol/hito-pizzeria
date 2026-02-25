@@ -1,11 +1,35 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../context/CartContext'; // <-- Importamos
+import React, { useContext, useState } from 'react';
+import { CartContext } from '../context/CartContext';
 import { UserContext } from '../context/UserContext';
 
 const Cart = () => {
-  // Consumimos todo del contexto, ya no usamos useState local
   const { cart, increaseQuantity, decreaseQuantity, total } = useContext(CartContext);
-  const { token } = useContext(UserContext);
+  const { token } = useContext(UserContext); 
+  const [mensaje, setMensaje] = useState('');
+
+  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/api/checkouts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
+        body: JSON.stringify({ cart })
+      });
+
+      if (response.ok) {
+        setMensaje("¡Compra realizada con éxito! 🍕");
+      } else {
+        setMensaje("Error al procesar la compra.");
+      }
+    } catch (error) {
+      console.error(error);
+      setMensaje("Error de conexión.");
+    }
+  };
 
   return (
     <div className="container mt-5 p-5">
@@ -20,7 +44,6 @@ const Cart = () => {
                     <img src={pizza.img} alt={pizza.name} style={{width: '80px', borderRadius: '5px'}} />
                     <h5 className="text-capitalize mb-0">{pizza.name}</h5>
                 </div>
-                
                 <div className="d-flex align-items-center gap-2">
                     <h5 className="mb-0 text-success">${(pizza.price * pizza.count).toLocaleString('es-CL')}</h5>
                     <button className="btn btn-outline-danger btn-sm" onClick={() => decreaseQuantity(pizza.id)}>-</button>
@@ -30,9 +53,13 @@ const Cart = () => {
             </div>
            ))
         )}
-        
         <h3 className="mt-4">Total: ${total.toLocaleString('es-CL')}</h3>
-        <button className="btn btn-dark mt-3" disabled={cart.length === 0 || !token}>Pagar</button>
+        
+        {mensaje && <div className="alert alert-success mt-3">{mensaje}</div>}
+        
+        <button className="btn btn-dark mt-3" disabled={!token || cart.length === 0} onClick={handleCheckout}>
+          Pagar
+        </button>
       </div>
     </div>
   );

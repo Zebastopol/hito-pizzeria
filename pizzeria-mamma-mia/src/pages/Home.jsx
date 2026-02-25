@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Header from '../components/Header';       // <-- Ruta corregida
-import CardPizza from '../components/CardPizza'; // <-- Ruta corregida
-import { CartContext } from '../context/CartContext'; // <-- Importamos context
+import Header from '../components/Header';
+import CardPizza from '../components/CardPizza';
+import { CartContext } from '../context/CartContext';
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
-  const { addToCart } = useContext(CartContext); // <-- Consumimos función añadir
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     consultarApi();
@@ -15,6 +15,7 @@ const Home = () => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
       const url = `${apiUrl}/api/pizzas`;
+      
       const response = await fetch(url);
       const data = await response.json();
       setPizzas(data);
@@ -36,9 +37,7 @@ const Home = () => {
                 price={pizza.price}
                 ingredients={pizza.ingredients}
                 img={pizza.img}
-                desc={pizza.desc}
-                //se pasa la info completa de la pizza para añadir al carrito
-                handleAdd={() => addToCart(pizza)}
+                handleAdd={() => addToCart(pizza)} 
               />
             </div>
           ))}

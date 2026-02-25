@@ -3,69 +3,44 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError]  = useState(false); // actualiza estado a false  
-  const { login } = useContext(UserContext); //Le entrego la función de usercontext  
-  const navigate = useNavigate(); // Y el Hook para redireccionar
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [error, setError] = useState('');
+  
+  const { login } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const validarLogin = (e) => {
+  const validarDatos = async (e) => {
     e.preventDefault();
-    setError(false); // Reiniciar el error
-
-    if (!email.trim() || !password.trim()) {
-      setError('Todos los campos son obligatorios.');
+    if (!emailInput.trim() || !passwordInput.trim()) {
+      setError('Todos los campos son obligatorios');
       return;
     }
-
-    if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres.');
+    if (passwordInput.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
       return;
     }
-
-    // Simulación de login exitoso
-    login(); // Llamada correcta a la función del contexto
-    navigate('/'); // Redirección al Home
+    setError('');
+    
+    const exito = await login(emailInput, passwordInput); 
+    if (exito) navigate('/');
   };
 
   return (
     <div className="container mt-5">
-       <div className="row justify-content-center">
-        <div className="col-12 col-md-6">
-            <h2 className="mb-4">Login</h2>
-            <form onSubmit={validarLogin} className="mt-4" style={{ maxWidth: '400px'}}>
-                {error && <p className="text-danger">{error}</p>}
-                
-                <div className="mb-3">
-                    <label htmlFor="emailInput" className="form-label">Email</label> 
-                    <input 
-                        type="email" 
-                        id="emailInput"     
-                        name="email"
-                        className="form-control" 
-                        placeholder="Enter your email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        autoComplete="email"
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="passwordInput" className="form-label">Password</label>
-                    <input 
-                        type="password"
-                        id="passwordInput"
-                        name="password"
-                        className="form-control" 
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        autoComplete="current-password"
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Login</button>
-            </form>
+      <h2>Login</h2>
+      <form onSubmit={validarDatos} className="mt-4" style={{ maxWidth: '400px' }}>
+        {error && <p className="text-danger fw-bold">{error}</p>}
+        <div className="mb-3">
+          <label htmlFor="emailInput" className="form-label">Email</label>
+          <input type="email" id="emailInput" name="email" className="form-control" onChange={(e) => setEmailInput(e.target.value)} value={emailInput} autoComplete="email" />
         </div>
-      </div>
+        <div className="mb-3">
+          <label htmlFor="passwordInput" className="form-label">Password</label>
+          <input type="password" id="passwordInput" name="password" className="form-control" onChange={(e) => setPasswordInput(e.target.value)} value={passwordInput} autoComplete="current-password" />
+        </div>
+        <button type="submit" className="btn btn-primary">Ingresar</button>
+      </form>
     </div>
   );
 };
