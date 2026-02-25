@@ -3,10 +3,7 @@
   "builds": [
     {
       "src": "pizzeria-mamma-mia/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "use": "@vercel/static-build"
     },
     {
       "src": "pizza-backend/api/index.js",
@@ -20,7 +17,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "pizzeria-mamma-mia/index.html"
+      "destination": "/index.html"
     }
   ]
 }
