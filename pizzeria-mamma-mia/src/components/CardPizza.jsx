@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Importar Link
 
-const CardPizza = ({ name, price, ingredients, img, desc, handleAdd }) => {
+// Asegúrate de recibir el ID como prop (tendrás que pasarlo desde Home.jsx)
+const CardPizza = ({ id, name, price, ingredients, img, desc, handleAdd }) => {
   return (
-    <div className="card h-100 mt-3 mb-3">
+<div className="card h-100 mt-3 mb-3">
       <img src={img} className="card-img-top" alt={name} />
         <div className="card-body">
           <h4 className="card-title text-start text-capitalize">{name}</h4>
@@ -18,18 +20,16 @@ const CardPizza = ({ name, price, ingredients, img, desc, handleAdd }) => {
                   </span>
               ))}
           </div>
-        </div>
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item text-center fw-bold fs-4">
-                  Precio: ${price.toLocaleString('es-CL')}
-              </li>
-            </ul>
-        <div className="card-body d-flex justify-content-between">
-          <button className="btn btn-light border border-dark">Ver Más 👀</button>
-          <button className="btn btn-dark" onClick={handleAdd}>Añadir 🛒</button>
-        </div>
+        </div>      
+      <div className="card-body d-flex justify-content-between">
+        {/* Enlace dinámico a /pizza/p001, /pizza/p002, etc. */}
+        <Link to={`/pizza/${id}`} className="btn btn-light border border-dark">
+            Ver Más 👀
+        </Link>
+        
+        <button className="btn btn-dark" onClick={handleAdd}>Añadir 🛒</button>
+      </div>
     </div>
   );
 };
-
 export default CardPizza;

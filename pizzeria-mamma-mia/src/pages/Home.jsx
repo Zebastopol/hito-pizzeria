@@ -31,10 +31,12 @@ const Home = () => {
           {pizzas.map((pizza) => (
             <div className="col-12 col-md-4 mb-4" key={pizza.id}>
               <CardPizza
+                id={pizza.id}
                 name={pizza.name}
                 price={pizza.price}
                 ingredients={pizza.ingredients}
                 img={pizza.img}
+                desc={pizza.desc}
                 //se pasa la info completa de la pizza para añadir al carrito
                 handleAdd={() => addToCart(pizza)}
               />

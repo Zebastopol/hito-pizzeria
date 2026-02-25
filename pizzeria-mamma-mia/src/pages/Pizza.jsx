@@ -1,18 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom'; // 1. Importamos useParams
+import { CartContext } from '../context/CartContext'; // (Opcional) Para que funcione el botón
 
 const Pizza = () => {
-  // Estado para guardar la información de la pizza
   const [pizza, setPizza] = useState(null);
+  
+  // 2. Extraemos el 'id' de la URL (ej: p002)
+  const { id } = useParams(); 
+  
+  // Consumimos el contexto para activar el botón (Bonus)
+  const { addToCart } = useContext(CartContext);
 
-  // useEffect para consumir la API al montar el componente
+  // 3. Agregamos [id] como dependencia
   useEffect(() => {
     consultarPizza();
-  }, []);
+  }, [id]); 
 
   const consultarPizza = async () => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-      const url = `${apiUrl}/api/pizzas/p001`;
+      
+      // 4. Inyectamos el ID dinámico en la URL de la API
+      const url = `${apiUrl}/api/pizzas/${id}`;
+      
       const response = await fetch(url);
       const data = await response.json();
       setPizza(data);
@@ -21,7 +31,6 @@ const Pizza = () => {
     }
   };
 
-  // Mostrar mensaje de carga mientras se obtiene la información
   if (!pizza) {
     return (
       <div className="container mt-5 text-center">
@@ -45,13 +54,9 @@ const Pizza = () => {
             />
             <div className="card-body">
               <h2 className="card-title text-capitalize mb-3">{pizza.name}</h2>
-              
               <hr />
-              
               <p className="card-text text-muted mb-4">{pizza.desc}</p>
-              
               <hr />
-              
               <div className="mb-4">
                 <h5 className="mb-3">Ingredientes:</h5>
                 <div className="d-flex flex-wrap gap-2">
@@ -65,14 +70,17 @@ const Pizza = () => {
                   ))}
                 </div>
               </div>
-              
               <hr />
-              
               <div className="d-flex justify-content-between align-items-center">
                 <h3 className="mb-0">
                   Precio: <span className="text-success">${pizza.price.toLocaleString('es-CL')}</span>
                 </h3>
-                <button className="btn btn-dark btn-lg">
+                
+                {/* Conectamos el botón al Contexto */}
+                <button 
+                  className="btn btn-dark btn-lg"
+                  onClick={() => addToCart(pizza)}
+                >
                   Añadir al carrito 🛒
                 </button>
               </div>

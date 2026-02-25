@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext'; // <-- Importamos
+import { UserContext } from '../context/UserContext';
 
 const Cart = () => {
   // Consumimos todo del contexto, ya no usamos useState local
   const { cart, increaseQuantity, decreaseQuantity, total } = useContext(CartContext);
+  const { token } = useContext(UserContext);
 
   return (
     <div className="container mt-5 p-5">
@@ -30,7 +32,7 @@ const Cart = () => {
         )}
         
         <h3 className="mt-4">Total: ${total.toLocaleString('es-CL')}</h3>
-        <button className="btn btn-dark mt-3" disabled={cart.length === 0}>Pagar</button>
+        <button className="btn btn-dark mt-3" disabled={cart.length === 0 || !token}>Pagar</button>
       </div>
     </div>
   );

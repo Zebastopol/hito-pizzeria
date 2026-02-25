@@ -5,7 +5,7 @@ export const CartContext = createContext();
 
 // 2. Creación del Provider
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+const [cart, setCart] = useState([]);
 
   // Funciones para modificar el estado global
 

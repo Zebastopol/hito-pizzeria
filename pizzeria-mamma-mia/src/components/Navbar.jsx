@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext'; // <-- Importamos el contexto
+import { UserContext } from '../context/UserContext';
 
 const Navbar = () => {
-  const { total } = useContext(CartContext); // <-- Consumimos el total
-  const token = false;
+const { total } = useContext(CartContext); // <-- Consumimos el total
+const { token, logout } = useContext(UserContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white">
@@ -25,7 +26,14 @@ const Navbar = () => {
                   <Link to="/profile" className="nav-link text-white border border-white rounded ms-2">🔓 Profile</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/logout" className="nav-link text-white border border-white rounded ms-2">🔒 Logout</Link>
+                  {/*Botón con evento onClick que ejecuta logout */}
+                  <button 
+                    onClick={logout} 
+                    className="nav-link text-white border border-white rounded ms-2 bg-transparent"
+                    style={{ cursor: 'pointer' }}
+                  >
+                    🔒 Logout
+                  </button>
                 </li>
               </>
             ) : (
